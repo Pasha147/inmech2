@@ -6,12 +6,6 @@
 .pnp.js
 .yarn/install-state.gz
 
-#=============================
-../Docs/
-../Exercises2/
-../NextDashboard/
-#----------==========-----------
-
 # testing
 /coverage
 
