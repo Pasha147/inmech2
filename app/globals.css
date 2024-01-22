@@ -6,7 +6,12 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --header-4: #8e58af;
   --header-5: #540d83;
+
+  --green-500: #5fc7c5;
+  --green-600: #309a99;
   --header-6: linear-gradient(#540d83 75%, #8654a4);
   
 }

@@ -1,62 +1,183 @@
+
 .header{
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 50;
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
-    /* background-color: var(--green-600); */
-    
-    box-shadow: 5px 5px 10px #1e2828b8;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 50;
+  /* display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--green-600); */
+  box-shadow: 5px 5px 10px #1e2828b8;
 }
 .header::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(#540d83 75%, #8654a4);
-    z-index: 2;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, var(--header-5) 70%, var(--header-4));
+  /* background: linear-gradient(90% rgb(255, 255, 255) 10% , var(--header-5) 90%); */
+  /* background: linear-gradient(var(--header-4) 1%, var(--header-5)); */
+  /* background-color: var(--header-5); */
+
+  z-index: 2;
   }
 
 
 .header__body{
     position: relative;
-    z-index: 2;
+    /* z-index: 3; */
     display: flex;
     justify-content: space-between;
     height: 100px;
     align-items: flex-end;
-    border: 1px solid red;
+    /* flex-wrap: wrap; */
+    /* border: 1px solid red; */
 }
 .link__logo{
+    min-width: 100px;
+    z-index: 3;
     align-self: center;
+    flex-shrink: 1;
+    margin-right: 10px;
 }
 .logoImg{
+    min-width: 50px;
     width: 300px;
     /* height: auto; */
   
     object-fit: contain;
 }
+
+.header__burger {
+    display: none;
+  }
+
 .nav{
-    margin-bottom: 5px;
-   
+    flex-grow: 1;
+    /* border: 1px solid red; */
+    z-index: 2;
+    margin-bottom: 8px;
+    background-color: transparent;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
+
 .navLink{
-    margin: 10px 5px;
-    color: #c1a7d0;
-    padding: 4px;
+    margin-right: 2px; 
+    color: #c8e2e2;
+    padding: 2px 2px;
     border-radius: 4px;
 
 }
 .navLink:hover{
-    box-shadow: 4px 4px 8px 2px #794298;
+    box-shadow: 4px 4px 8px 1px #794298;
 }
 .navLinkActive{
    
-    color: aliceblue;
+    color:  #8983f2;
     text-decoration: underline;
+}
+
+@media (max-width: 500px){
+    .header__body{
+        height: 75px;
+    }
+    .link__logo{
+        height: 75px;
+        /* border: 1px solid green; */
+    }
+    .logoImg{
+        height: 100%;
+        width: auto;
+    }
+
+
+    .header__burger {
+        display: block;
+        position: relative;
+        width: 30px;
+        height: 21px;
+        position: relative;
+        margin-bottom: 10px;
+        z-index: 3;
+      }
+      .header__burger::after,
+      .header__burger::before {
+        content: "";
+        background: white;
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        left: 0;
+        transition: all 0.3s ease 0s;
+      }
+      .header__burger::before {
+        top: 0;
+      }
+      .header__burger::after {
+        bottom: 0;
+      }
+      .header__burger span {
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: white;
+        top: 49%;
+        transition: all 0.3s ease 0s;
+      }
+      .header__burgerOff span{
+       
+        transform: scale(0);
+        
+      }
+      .header__burgerOff::after{
+        transform: rotate(-45deg);
+        bottom: 11px;
+      }
+      .header__burgerOff::before{
+        transform: rotate(45deg);
+        top: 8px;
+        left: 1px;
+      }
+    
+
+    .nav{
+        display: block;
+        overflow: auto;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: 5%;
+        width: 90%;
+        height: 60%;
+        background-color: var(--green-500);
+        padding-top: 80px;
+        transition: all 0.3s ease 0s; 
+        opacity: 100%;
+        box-shadow: 5px 10px 15px #1e2828b8, 
+                                    0 0 5px var(--green-500);
+        border-radius: 0 0 0.5rem 0.5rem;
+        
+    }
+    .navLink {
+        display: block;
+        margin-left: 5px;
+      }
+
+    .navOff {
+        top: -100%;
+        opacity: 0;
+        border-bottom-right-radius: 100px 250px;
+           
+      }
+    /* 
+    .header__menu {
+       
+        
+      } */
 }
