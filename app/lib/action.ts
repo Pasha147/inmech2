@@ -3,6 +3,10 @@
 
 import { z } from 'zod';
 import { sql } from '@vercel/postgres';
+import { unstable_noStore as noStore } from 'next/cache';
+
+
+
 
 const FormSchema = z.object({
     id: z.string(),
@@ -11,7 +15,7 @@ const FormSchema = z.object({
     text: z.string(),  
   });
 
-  const CreateNews = FormSchema.omit({ id: true});
+const CreateNews = FormSchema.omit({ id: true});
 
 export async function createNews(formData: FormData) {
 const rawFormData={
@@ -21,23 +25,13 @@ const rawFormData={
 }
 
 const { date, title, text } = CreateNews.parse(rawFormData);
-console.log(date, title, text);
-
+// console.log(date, title, text);
 
 await sql`
 INSERT INTO news (date, title, text)
         VALUES (${date}, ${title}, ${text})
         ON CONFLICT (id) DO NOTHING;
 `;
-
-// const date1 = new Date().toISOString().split('T')[0];
-
-
-// await sql`
-//     INSERT INTO invoices (customer_id, amount, status, date)
-//     VALUES (${customerId}, ${amountInCents}, ${status}, ${date1})
-//   `;
-
 
 }
 
@@ -54,6 +48,25 @@ CREATE TABLE news (
         ON CONFLICT (id) DO NOTHING;
 
 
-
 DROP TABLE news;
 */
+
+
+type NewsSchema={
+    id: string
+    date: string
+    title: string
+    text: string
+}
+
+export async function fetchNews(){
+    noStore();
+try{
+    const data = await sql<NewsSchema>`SELECT * FROM news`;
+    return data.rows;
+
+}catch(error){
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+}
+}
