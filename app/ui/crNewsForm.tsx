@@ -1,12 +1,12 @@
 'use client';
 
 import classes from '@/app/ui/crNewsForm.module.css'
-import { createNews } from '../lib/action';
+import { createNewsB } from '../lib/action';
 
 export function CreateNewsForm() {
     return (
         <form
-            action={createNews}
+            action={createNewsB}
             className={classes.createForm}
         >
             <h2 className={classes.h2}>Create news</h2>
@@ -34,6 +34,19 @@ export function CreateNewsForm() {
                 name="title"
                 type="text"
                 placeholder="Title"
+                className={classes.titleInp}
+            />
+            <label
+                htmlFor="img"
+                className={classes.label}
+            >
+                img
+            </label>
+            <input
+                id="img"
+                name="img"
+                type="text"
+                placeholder="img"
                 className={classes.titleInp}
             />
             <label
