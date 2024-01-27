@@ -68,3 +68,8 @@ body {
   padding-top: 6rem;
   background: rgb(207, 153, 153);
 }
+
+input, textarea{
+  background-color: #ffffff;
+  color: #000000;
+}

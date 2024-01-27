@@ -3,6 +3,7 @@ import styles from '@/app/admin/admin.module.css'
 import { CreateNewsForm } from '../ui/crNewsForm'
 import { fetchNewsB } from '../lib/action';
 import { deleteNews } from '../lib/action';
+import Link from 'next/link';
 
 export default async function Admin() {
 
@@ -26,7 +27,13 @@ export default async function Admin() {
               <form action={deleteNewsId}>
                 <button type='submit'>Del</button>
               </form>
-              <hr/>
+              <Link
+                href={`/${nw.id}/editNews`}
+                className="rounded-md border p-2 hover:bg-gray-100"
+              >
+               Edit
+              </Link>
+              <hr />
             </div>
           )
         })

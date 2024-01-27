@@ -7,43 +7,15 @@ import { unstable_noStore as noStore } from 'next/cache';
 import { revalidatePath } from 'next/cache';
 
 
-
-const FormSchema = z.object({
-    id: z.string(),
-    date: z.string(),
-    title: z.string(),
-    text: z.string(),
-});
-
-const CreateNews = FormSchema.omit({ id: true });
-
-export async function createNews(formData: FormData) {
-    const rawFormData = {
-        date: formData.get('date'),
-        title: formData.get('title'),
-        text: formData.get('text')
-    }
-
-    const { date, title, text } = CreateNews.parse(rawFormData);
-    // console.log(date, title, text);
-
-    await sql`
-        INSERT INTO news (date, title, text)
-        VALUES (${date}, ${title}, ${text})
-        ON CONFLICT (id) DO NOTHING;
-        `;
-
-}
-
 const FormSchemaB = z.object({
     id: z.string(),
     date: z.string(),
     title: z.string(),
     img: z.string(),
-    text: z.string(),  
-  });
+    text: z.string(),
+});
 
-const CreateNewsB = FormSchemaB.omit({ id: true});
+const CreateNewsB = FormSchemaB.omit({ id: true });
 
 export async function createNewsB(formData: FormData) {
     const rawFormData = {
@@ -60,9 +32,13 @@ export async function createNewsB(formData: FormData) {
         INSERT INTO newsb (date, title, img, text)
         VALUES (${date}, ${title}, ${img}, ${text})
         ON CONFLICT (id) DO NOTHING;
-`;
+            `;
+
+    revalidatePath('/admin');
 
 }
+
+
 
 /*
 CREATE TABLE news (
@@ -89,26 +65,6 @@ DROP TABLE news;
 */
 
 
-type NewsSchema = {
-    id: string
-    date: string
-    title: string
-    text: string
-}
-
-
-
-export async function fetchNews() {
-    noStore();
-    try {
-        const data = await sql<NewsSchema>`SELECT * FROM news`;
-        return data.rows;
-
-    } catch (error) {
-        console.error('Database Error:', error);
-        throw new Error('Failed to fetch revenue data.');
-    }
-}
 
 type NewsSchemaB = {
     id: string
@@ -134,5 +90,68 @@ export async function deleteNews(id: string) {
     console.log('id->', id);
 
     await sql`DELETE FROM newsb WHERE id = ${id}`;
+
+    revalidatePath('/admin');
     revalidatePath('/');
 }
+
+export async function fetchNewsById(id: string) {
+    noStore();
+    try {
+        const data = await sql<NewsSchemaB>`
+          SELECT
+          newsb.id,
+          newsb.date,
+          newsb.title,
+          newsb.img,
+          newsb.text
+          FROM newsb
+          WHERE newsb.id = ${id};         
+        `;
+
+
+      
+        return data.rows;
+    //     return [{
+    //         id: id,
+    // date: 'd',
+    // title: 'd',
+    // img: 'd',
+    // text: 'd'
+    //     }];
+}catch (error) {
+    console.error('Database Error---:', error);
+    throw new Error('Failed to fetch invoice.');
+  }
+}
+
+//===================================================
+
+/*
+const FormSchema = z.object({
+    id: z.string(),
+    date: z.string(),
+    title: z.string(),
+    text: z.string(),
+});
+
+const CreateNews = FormSchema.omit({ id: true });
+
+export async function createNews(formData: FormData) {
+    const rawFormData = {
+        date: formData.get('date'),
+        title: formData.get('title'),
+        text: formData.get('text')
+    }
+
+    const { date, title, text } = CreateNews.parse(rawFormData);
+    // console.log(date, title, text);
+
+    await sql`
+        INSERT INTO news (date, title, text)
+        VALUES (${date}, ${title}, ${text})
+        ON CONFLICT (id) DO NOTHING;
+        `;
+
+}
+*/
