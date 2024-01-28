@@ -5,3 +5,11 @@ export type NewsMassage = {
     title: string; // Stored in cents
     text: string;
   };
+
+  //For auth.ts
+  export type User = {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+  };

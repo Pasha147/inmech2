@@ -4,6 +4,7 @@ import { CreateNewsForm } from '../ui/crNewsForm'
 import { fetchNewsB } from '../lib/action';
 import { deleteNews } from '../lib/action';
 import Link from 'next/link';
+import { signOut } from '@/auth';
 
 export default async function Admin() {
 
@@ -12,6 +13,19 @@ export default async function Admin() {
   return (
     <div className='container'>
       <h1 className={styles.h1}>Admin page</h1>
+
+      <form
+          action={async () => {
+            'use server';
+            await signOut();
+          }}
+        >
+          <button >
+            
+            Sign Out
+          </button>
+        </form>
+
       <CreateNewsForm />
       {
         news.map((nw) => {
