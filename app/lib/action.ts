@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { sql } from '@vercel/postgres';
 import { unstable_noStore as noStore } from 'next/cache';
 import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
 
 
 const FormSchemaB = z.object({
@@ -108,22 +109,38 @@ export async function fetchNewsById(id: string) {
           FROM newsb
           WHERE newsb.id = ${id};         
         `;
-
-
-      
-        return data.rows;
-    //     return [{
-    //         id: id,
-    // date: 'd',
-    // title: 'd',
-    // img: 'd',
-    // text: 'd'
-    //     }];
-}catch (error) {
-    console.error('Database Error---:', error);
-    throw new Error('Failed to fetch invoice.');
-  }
+        return data.rows[0];
+    } catch (error) {
+        console.error('Database Error---:', error);
+        throw new Error('Failed to fetch invoice.');
+    }
 }
+
+// Use Zod to update the expected types
+// const UpdateInvoice = FormSchema.omit({ id: true, date: true });
+
+
+export async function editNews(id: string, form: FormData) {
+    const rawForm = {
+        date: form.get('date'),
+        title: form.get('title'),
+        img: form.get('img'),
+        text: form.get('text'),
+    }
+    const { date, title, img, text } = CreateNewsB.parse(rawForm);
+
+
+    await sql`
+    UPDATE newsb
+    SET id = ${id}, date = ${date}, title = ${title}, img = ${img}, text = ${text}
+    WHERE id = ${id}
+  `;
+
+    revalidatePath('/admin');
+    redirect('/admin');
+
+}
+
 
 //===================================================
 
