@@ -42,7 +42,7 @@ export default async function Admin() {
                 <button type='submit'>Del</button>
               </form>
               <Link
-                href={`/${nw.id}/editNews`}
+                href={`/admin/${nw.id}/editNews`}
                 className="rounded-md border p-2 hover:bg-gray-100"
               >
                Edit

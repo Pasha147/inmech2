@@ -1,6 +1,6 @@
 
 import { fetchNewsById } from "@/app/lib/action";
-import classes from '@/app/[id]/editNews/editNewsForm.module.css'
+import classes from '@/app/admin/[id]/editNews/editNewsForm.module.css'
 import { editNews } from "@/app/lib/action";
 
 export default async function Page({ params }: { params: { id: string } }) {
