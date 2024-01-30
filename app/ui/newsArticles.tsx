@@ -23,7 +23,7 @@ export default async function NewsArticles() {
                             className={cl.imgNext}
                             src={`/img/${nw.img}`}
                             width={300}
-                            height={225}
+                            height={1}
                             // priority={true}
                             // className={}
                             // style={{
