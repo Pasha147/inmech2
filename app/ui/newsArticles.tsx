@@ -5,7 +5,7 @@ import Image from 'next/image';
 
 export default async function NewsArticles() {
 
-    const news = await fetchNewsB()
+    const news = await (await fetchNewsB()).reverse()
 
     return (
         news.map((nw) => {
