@@ -8,7 +8,7 @@ import SkelNewsArticles from '../ui/skeletons';
 export default async function Home() {
 
   return (
-    <div className='container'>
+    <div className={styles.sectionHome +' container'+' section'}>
       <h1>{'Новини'}</h1>
       <Suspense fallback={<SkelNewsArticles />}>
          <NewsArticles/>

@@ -9,10 +9,14 @@
 
   --header-4: #8e58af;
   --header-5: #540d83;
-
+  
+  --green-100: #c8e2e2;
   --green-500: #5fc7c5;
   --green-600: #309a99;
   --header-6: linear-gradient(#540d83 75%, #8654a4);
+
+  /* --breakPoint500: 500px; */
+  --bg: linear-gradient(0deg, var(--header-5) 70%, var(--header-4));
   
 }
 
@@ -65,12 +69,31 @@ body {
 
 .main {
   flex: 1 1 auto;
-  padding-top: 6rem;
-  background: rgb(207, 153, 153);
+  padding-top: 7rem;
+  background: white;
 }
 
+.section{
+  background-color: rgb(255, 255, 255);
+}
+
+h1{
+  font-size: 2rem;
+  text-align: center;
+}
+h2{
+  font-size: 1.5rem;
+  text-align: center;
+}
 
 input, textarea{
   background-color: #ffffff;
   color: #000000;
+}
+
+@media (max-width: 500px){
+  .main {
+        padding-top: 5rem;
+    
+  }
 }

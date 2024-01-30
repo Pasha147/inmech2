@@ -18,7 +18,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, var(--header-5) 70%, var(--header-4));
+  background: var(--bg);
+  /* background: linear-gradient(0deg, var(--header-5) 70%, var(--header-4)); */
   /* background: linear-gradient(90% rgb(255, 255, 255) 10% , var(--header-5) 90%); */
   /* background: linear-gradient(var(--header-4) 1%, var(--header-5)); */
   /* background-color: var(--header-5); */

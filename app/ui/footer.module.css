@@ -1,0 +1,7 @@
+
+.footer{
+    background: var(--bg);
+    /* background-color: red; */
+    color: var(--green-100);
+    text-align: center;
+}

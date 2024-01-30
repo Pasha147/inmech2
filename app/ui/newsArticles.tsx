@@ -1,4 +1,5 @@
 
+import cl from '@/app/ui/newsArticles.module.css'
 import { fetchNewsB } from '../lib/action';
 import Image from 'next/image';
 
@@ -9,14 +10,20 @@ export default async function NewsArticles() {
     return (
         news.map((nw) => {
             return (
-                <div key={`news ${nw.id}`}>
+                <div
+                    key={`news ${nw.id}`}
+                    className={cl.newsArticle}
+                >
                     {/* <p>{`id: ${nw.id}`}</p> */}
                     <p>{`date: ${nw.date}`}</p>
-                    <p>{`title: ${nw.title}`}</p>
-                    <Image
+                    <hr />
+                    <h2>{nw.title}</h2>
+                    <div className={cl.imgCont}>
+                        <Image
+                            className={cl.imgNext}
                             src={`/img/${nw.img}`}
                             width={300}
-                            height={92}
+                            height={225}
                             // priority={true}
                             // className={}
                             // style={{
@@ -26,9 +33,10 @@ export default async function NewsArticles() {
                             // className="hidden md:block"
                             alt="Logo"
                         />
-                    <p>{`img: ${nw.img}`}</p>
-                    <p>{`text: ${nw.text}`}</p>
-                    <hr />
+                    </div>
+                    {/* <p>{`img: ${nw.img}`}</p> */}
+                    <p>{nw.text}</p>
+
                 </div>
             )
         })
