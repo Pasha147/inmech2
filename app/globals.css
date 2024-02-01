@@ -9,7 +9,7 @@
 
   --header-4: #8e58af;
   --header-5: #540d83;
-  
+
   --green-100: #c8e2e2;
   --green-500: #5fc7c5;
   --green-600: #309a99;
@@ -17,13 +17,11 @@
 
   /* --breakPoint500: 500px; */
   --bg: linear-gradient(0deg, var(--header-5) 70%, var(--header-4));
-  
 }
 
-.nav_link{
+.nav_link {
   background-color: rgb(215, 182, 244);
 }
-
 
 @media (prefers-color-scheme: dark) {
   :root {
@@ -32,9 +30,6 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
-
-
-
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -46,15 +41,13 @@ body {
     rgb(var(--background-start-rgb));
 }
 
-
 .appCont {
   /* max-width: 1024px; */
   min-height: 100vh;
   width: 100%;
-   height: 100%;
-   border: 2px gray solid; 
+  height: 100%;
+  border: 2px gray solid;
 
- 
   margin: 0 auto;
   position: relative;
   display: flex;
@@ -64,7 +57,7 @@ body {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 0 10px; 
+  padding: 0 10px;
 }
 
 .main {
@@ -73,27 +66,36 @@ body {
   background: white;
 }
 
-.section{
+.section {
   background-color: rgb(255, 255, 255);
 }
 
-h1{
+h1 {
   font-size: 2rem;
   text-align: center;
 }
-h2{
+h2 {
   font-size: 1.5rem;
   text-align: center;
 }
 
-input, textarea{
+input,
+textarea {
   background-color: #ffffff;
   color: #000000;
 }
+.btn {
+  border-radius: 6px;
+  /* background-color: rgb(107, 107, 217); */
+  background: var(--bg);
+  padding: 0.25rem;
+  margin-right: 1rem;
+  margin-left: auto;
+  color: var(--green-100);
+}
 
-@media (max-width: 500px){
+@media (max-width: 500px) {
   .main {
-        padding-top: 5rem;
-    
+    padding-top: 5rem;
   }
 }

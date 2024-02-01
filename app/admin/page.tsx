@@ -1,35 +1,46 @@
 import Image from 'next/image'
 import styles from '@/app/admin/admin.module.css'
 import { CreateNewsForm } from '../ui/crNewsForm'
-import { fetchNewsB } from '../lib/action';
-import { deleteNews } from '../lib/action';
+import { fetchNewsB, deleteNews, editNewsId } from '../lib/action';
 import Link from 'next/link';
 import { signOut } from '@/auth';
+import { redirect } from 'next/dist/server/api-utils';
+import { useState } from 'react';
+import ExForm from '../ui/exForm';
 
 export default async function Admin() {
 
-  const news = await fetchNewsB()
+  // "use client"
+  // const [isCrForm, setCrForm]= useState(true)
+
+  // "use server"
+
+  const news = await (await fetchNewsB()).reverse()
 
   return (
     <div className='container'>
       <h1 className={styles.h1}>Admin page</h1>
 
-      <form
-          action={async () => {
-            'use server';
-            await signOut();
-          }}
-        >
-          <button >
-            
-            Sign Out
-          </button>
-        </form>
+      <ExForm news={news}/>
 
-      <CreateNewsForm />
+      <form
+      className={styles.signOutBtn}
+        action={async () => {
+          'use server';
+          await signOut();
+        }}
+      >
+        <button className='btn' >
+
+          Sign Out
+        </button>
+      </form>
+
+      {/* <CreateNewsForm /> */}
       {
         news.map((nw) => {
           const deleteNewsId = deleteNews.bind(null, nw.id)
+          const editNewsIdB = editNewsId.bind(null, nw.id)
 
           return (
             <div key={`news ${nw.id}`}>
@@ -39,14 +50,22 @@ export default async function Admin() {
               <p>{`img: ${nw.img}`}</p>
               <p>{`text: ${nw.text}`}</p>
               <form action={deleteNewsId}>
-                <button type='submit'>Del</button>
+                <button
+                  className='btn'
+                  type='submit'>Del</button>
               </form>
-              <Link
+              {/* <Link
                 href={`/admin/${nw.id}/editNews`}
                 className="rounded-md border p-2 hover:bg-gray-100"
               >
                Edit
-              </Link>
+              </Link> */}
+              <form action={editNewsIdB}>
+                <button
+                  className='btn'
+                  type='submit'
+                >Edit</button>
+              </form>
               <hr />
             </div>
           )

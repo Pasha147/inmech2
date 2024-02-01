@@ -98,6 +98,11 @@ export async function deleteNews(id: string) {
     revalidatePath('/admin');
     revalidatePath('/');
 }
+export async function editNewsId(id: string) {
+    redirect(`/admin/${id}/editNews`)
+}
+
+
 
 export async function fetchNewsById(id: string) {
     noStore();

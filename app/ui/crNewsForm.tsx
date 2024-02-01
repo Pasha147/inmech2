@@ -4,6 +4,9 @@ import classes from '@/app/ui/crNewsForm.module.css'
 import { createNewsB } from '../lib/action';
 
 export function CreateNewsForm() {
+
+    const date = new Date().toISOString().split('T')[0];
+
     return (
         <form
             action={createNewsB}
@@ -22,6 +25,7 @@ export function CreateNewsForm() {
                 type="text"
                 placeholder="dd/mm/YYYY"
                 className={classes.dateInp}
+                defaultValue={date}
             />
             <label
                 htmlFor="title"
@@ -63,7 +67,7 @@ export function CreateNewsForm() {
             ></textarea>
             <button
             type="submit"
-            className={classes.submitBtn}>Create news</button>
+            className='btn'>Save news</button>
         </form>
     )
 }
