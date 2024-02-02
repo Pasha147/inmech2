@@ -17,6 +17,7 @@
 
   /* --breakPoint500: 500px; */
   --bg: linear-gradient(0deg, var(--header-5) 70%, var(--header-4));
+  --headerHeight:100px;
 }
 
 .nav_link {
@@ -70,6 +71,13 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
+.article{
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 5px 5px 10px #1e2828b8;
+  margin: 1rem 0.5rem;
+}
+
 h1 {
   font-size: 2rem;
   text-align: center;
@@ -95,6 +103,9 @@ textarea {
 }
 
 @media (max-width: 500px) {
+  :root {
+    --headerHeight:75px;
+  }
   .main {
     padding-top: 5rem;
   }

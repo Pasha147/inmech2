@@ -8,33 +8,42 @@ import { redirect } from 'next/dist/server/api-utils';
 import { useState } from 'react';
 import ExForm from '../ui/exForm';
 
+
 export default async function Admin() {
 
-  // "use client"
-  // const [isCrForm, setCrForm]= useState(true)
-
-  // "use server"
-
-  const news = await (await fetchNewsB()).reverse()
+  // const news = await (await fetchNewsB()).reverse()
+  const news = (await fetchNewsB()).sort(
+    (a, b) => {
+      const dateA = a.date
+      const dateB = b.date
+      if (dateA < dateB) {
+        return -1;
+      }
+      else {
+        return 1;
+      }
+    }
+  ).reverse()
 
   return (
-    <div className='container'>
-      <h1 className={styles.h1}>Admin page</h1>
-
-      <ExForm news={news}/>
-
+    <div className={'container ' + styles.sectionAdmin}>
       <form
-      className={styles.signOutBtn}
+        className={styles.signOutBtn}
         action={async () => {
           'use server';
-          await signOut();
+          await signOut({ redirectTo: '/' });
+
         }}
       >
         <button className='btn' >
-
           Sign Out
         </button>
       </form>
+
+      <h1 className={styles.h1}>Admin page</h1>
+
+      <h2>News</h2>
+      <ExForm news={news} />
 
       {/* <CreateNewsForm /> */}
       {
@@ -43,30 +52,40 @@ export default async function Admin() {
           const editNewsIdB = editNewsId.bind(null, nw.id)
 
           return (
-            <div key={`news ${nw.id}`}>
+            <div
+              className={'article ' + styles.admArt}
+              key={`news ${nw.id}`}>
               <p>{`id: ${nw.id}`}</p>
               <p>{`date: ${nw.date}`}</p>
               <p>{`title: ${nw.title}`}</p>
               <p>{`img: ${nw.img}`}</p>
               <p>{`text: ${nw.text}`}</p>
-              <form action={deleteNewsId}>
-                <button
-                  className='btn'
-                  type='submit'>Del</button>
-              </form>
+              <div className={styles.btnCont}>
+                <form
+                  className={styles.artBtn}
+                  action={deleteNewsId}>
+                  <button
+                    className='btn'
+                    type='submit'>Del</button>
+                </form>
+                <form
+                  className={styles.artBtn}
+                  action={editNewsIdB}>
+                  <button
+                    className='btn'
+                    type='submit'
+                  >Edit</button>
+                </form>
+              </div>
+
               {/* <Link
                 href={`/admin/${nw.id}/editNews`}
                 className="rounded-md border p-2 hover:bg-gray-100"
               >
                Edit
               </Link> */}
-              <form action={editNewsIdB}>
-                <button
-                  className='btn'
-                  type='submit'
-                >Edit</button>
-              </form>
-              <hr />
+
+
             </div>
           )
         })
