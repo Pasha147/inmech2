@@ -7,7 +7,11 @@ import { signOut } from '@/auth';
 import { redirect } from 'next/dist/server/api-utils';
 import { useState } from 'react';
 import ExForm from '../ui/exForm';
+import { Metadata } from 'next'
 
+export const metadata: Metadata = {
+  title: 'Admin',
+}
 
 export default async function Admin() {
 
