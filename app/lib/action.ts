@@ -32,12 +32,20 @@ export async function createNewsB(formData: FormData) {
     const { date, title, img, text } = CreateNewsB.parse(rawFormData);
     // console.log(date, title, text);
 
-    await sql`
+    try {
+        await sql`
         INSERT INTO newsb (date, title, img, text)
         VALUES (${date}, ${title}, ${img}, ${text})
         ON CONFLICT (id) DO NOTHING;
             `;
 
+    
+    } catch (error) {
+        return {
+            message: 'Database Error: Failed to Create News.',
+          };
+    }
+    
     revalidatePath('/admin');
 
 }
@@ -90,7 +98,7 @@ export async function fetchNewsB() {
     }
 }
 export async function deleteNews(id: string) {
-
+    // throw new Error('Failed to Delete Invoice');
     console.log('id->', id);
 
     await sql`DELETE FROM newsb WHERE id = ${id}`;
@@ -98,6 +106,7 @@ export async function deleteNews(id: string) {
     revalidatePath('/admin');
     revalidatePath('/');
 }
+
 export async function editNewsId(id: string) {
     redirect(`/admin/${id}/editNews`)
 }
@@ -117,10 +126,12 @@ export async function fetchNewsById(id: string) {
           FROM newsb
           WHERE newsb.id = ${id};         
         `;
+
+        // console.log(data); // Invoice is an empty array []
         return data.rows[0];
     } catch (error) {
-        console.error('Database Error---:', error);
-        throw new Error('Failed to fetch invoice.');
+        console.error('Database Error--->:', error);
+        // throw new Error('Failed to fetch news by id.');
     }
 }
 

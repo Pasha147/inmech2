@@ -2,12 +2,20 @@
 import { fetchNewsById } from "@/app/lib/action";
 import classes from '@/app/admin/[id]/editNews/editNewsForm.module.css'
 import { editNews } from "@/app/lib/action";
+import { notFound } from 'next/navigation';
 
 export default async function Page({ params }: { params: { id: string } }) {
 
     const id = params.id;
     const news = await fetchNewsById(id)
-    // console.log('news-->',news)
+    
+
+    if (!news) {
+        console.log('news-->',news)
+        notFound();
+    }
+
+    
     const updateNewsWithId = editNews.bind(null, news.id);
 
     return (
