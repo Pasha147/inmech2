@@ -39,6 +39,7 @@ export function CreateNewsForm() {
                 type="text"
                 placeholder="Title"
                 className={classes.titleInp}
+                required
             />
             <label
                 htmlFor="img"
@@ -64,6 +65,7 @@ export function CreateNewsForm() {
                 name="text"
                 className={classes.textArea}
                 placeholder="Text"
+                required
             ></textarea>
             <button
             type="submit"

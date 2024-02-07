@@ -8,6 +8,8 @@ import { redirect } from 'next/dist/server/api-utils';
 import { useState } from 'react';
 import ExForm from '../ui/exForm';
 import { Metadata } from 'next'
+import EditCurNews from '@/app/ui/editCurNews'
+import EditForm from '@/app/ui/editForm'
 
 export const metadata: Metadata = {
   title: 'Admin',
@@ -51,7 +53,7 @@ export default async function Admin() {
 
       {/* <CreateNewsForm /> */}
       {
-        news.map((nw) => {
+        news.map((nw, n) => {
           const deleteNewsId = deleteNews.bind(null, nw.id)
           const editNewsIdB = editNewsId.bind(null, nw.id)
 
@@ -80,8 +82,10 @@ export default async function Admin() {
                     type='submit'
                   >Edit</button>
                 </form>
-              </div>
 
+              </div>
+              <EditCurNews curNews={nw} />
+              {/* <EditForm curNews={nw}/> */}
               {/* <Link
                 href={`/admin/${nw.id}/editNews`}
                 className="rounded-md border p-2 hover:bg-gray-100"
