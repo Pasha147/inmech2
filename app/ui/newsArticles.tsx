@@ -1,23 +1,24 @@
 
 import cl from '@/app/ui/newsArticles.module.css'
-import { fetchNewsB } from '../lib/action';
+import { fetchNewsC } from '../lib/action';
 import Image from 'next/image';
 
-export default async function NewsArticles() {
+export default async function NewsArticles({currentPage}:{currentPage:number}) {
 
     // const news = await (await fetchNewsB()).reverse()
-    const news = (await fetchNewsB()).sort(
-        (a, b) => {
-            const dateA = a.date;
-            const dateB = b.date;
-            if (dateA < dateB) {
-                return -1;
-            }else
-           {
-                return 1;
-            }
-        }
-    ).reverse()
+    // const news = (await fetchNewsC()).sort(
+    //     (a, b) => {
+    //         const dateA = a.date;
+    //         const dateB = b.date;
+    //         if (dateA < dateB) {
+    //             return -1;
+    //         }else
+    //        {
+    //             return 1;
+    //         }
+    //     }
+    // ).reverse()
+    const news = await fetchNewsC(currentPage)
         
     return (
         news.map((nw) => {

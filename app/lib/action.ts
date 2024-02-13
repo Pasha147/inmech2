@@ -39,13 +39,13 @@ export async function createNewsB(formData: FormData) {
         ON CONFLICT (id) DO NOTHING;
             `;
 
-    
+
     } catch (error) {
         return {
             message: 'Database Error: Failed to Create News.',
-          };
+        };
     }
-    
+
     revalidatePath('/admin');
 
 }
@@ -97,6 +97,38 @@ export async function fetchNewsB() {
         throw new Error('Failed to fetch revenue data.');
     }
 }
+
+export async function fetchNewsC(currentPage: number) {
+    // const currentPage=1;
+    const ITEMS_PER_PAGE = 3;
+    const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+    noStore();
+    try {
+        const data = await sql<NewsSchemaB>`
+        SELECT * FROM newsb
+        ORDER BY newsb.date DESC
+        LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+        `;
+        return data.rows;
+
+    } catch (error) {
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch revenue data.');
+    }
+}
+
+export async function newsCount() {
+    try {
+        const nCount = await sql`
+        SELECT COUNT(*)
+        FROM newsb
+        `
+    } catch (error) {
+
+    }
+}
+
+
 export async function deleteNews(id: string) {
     // throw new Error('Failed to Delete Invoice');
     console.log('id->', id);
@@ -163,21 +195,21 @@ export async function editNews(id: string, form: FormData) {
 export async function authenticate(
     prevState: string | undefined,
     formData: FormData,
-  ) {
+) {
     try {
-      await signIn('credentials', formData);
+        await signIn('credentials', formData);
     } catch (error) {
-      if (error instanceof AuthError) {
-        switch (error.type) {
-          case 'CredentialsSignin':
-            return 'Invalid credentials.';
-          default:
-            return 'Something went wrong.';
+        if (error instanceof AuthError) {
+            switch (error.type) {
+                case 'CredentialsSignin':
+                    return 'Invalid credentials.';
+                default:
+                    return 'Something went wrong.';
+            }
         }
-      }
-      throw error;
+        throw error;
     }
-  }
+}
 
 
 //===================================================

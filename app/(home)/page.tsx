@@ -10,13 +10,21 @@ export const metadata: Metadata = {
 }
 
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+     page?: string;
+  };
+}) {
+
+  const currentPage = Number(searchParams?.page) || 1;
 
   return (
     <div className={styles.sectionHome +' container section'}>
       <h1>{'Новини'}</h1>
       <Suspense fallback={<SkelNewsArticles />}>
-         <NewsArticles/>
+         <NewsArticles currentPage={currentPage}/>
       </Suspense>
     </div>
   )
