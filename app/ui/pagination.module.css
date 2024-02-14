@@ -1,0 +1,12 @@
+
+.pag{
+    display: flex; 
+    width: 8rem;
+    margin: 0.5rem auto;
+    justify-content: space-between;
+    align-items: center;
+}
+.pag_btn{
+    width: 2rem;
+    margin: 0.25rem;
+}

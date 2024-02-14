@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import SkelNewsArticles from '../ui/skeletons';
 import { Metadata } from 'next'
 
+
 export const metadata: Metadata = {
   title: 'News',
 }
@@ -25,6 +26,7 @@ export default async function Home({
       <h1>{'Новини'}</h1>
       <Suspense fallback={<SkelNewsArticles />}>
          <NewsArticles currentPage={currentPage}/>
+         
       </Suspense>
     </div>
   )

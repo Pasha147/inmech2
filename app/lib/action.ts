@@ -98,9 +98,11 @@ export async function fetchNewsB() {
     }
 }
 
+const ITEMS_PER_PAGE = 3;
+
 export async function fetchNewsC(currentPage: number) {
     // const currentPage=1;
-    const ITEMS_PER_PAGE = 3;
+    
     const offset = (currentPage - 1) * ITEMS_PER_PAGE;
     noStore();
     try {
@@ -123,8 +125,12 @@ export async function newsCount() {
         SELECT COUNT(*)
         FROM newsb
         `
+        const totalNews = Number(nCount.rows[0].count);
+        const totalPage = Math.ceil( totalNews/ ITEMS_PER_PAGE);
+    return {totalNews, totalPage};
     } catch (error) {
-
+        console.error('Database Error:', error);
+        throw new Error('Failed to fetch total number of News.');
     }
 }
 
