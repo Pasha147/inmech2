@@ -120,11 +120,14 @@ export async function fetchNewsC(currentPage: number) {
 }
 
 export async function newsCount() {
+    noStore();
     try {
         const nCount = await sql`
         SELECT COUNT(*)
         FROM newsb
         `
+        console.log('nCount-->',nCount.rows[0].count);
+        
         const totalNews = Number(nCount.rows[0].count);
         const totalPage = Math.ceil( totalNews/ ITEMS_PER_PAGE);
     return {totalNews, totalPage};
