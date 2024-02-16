@@ -22,6 +22,7 @@ const FormSchemaB = z.object({
 const CreateNewsB = FormSchemaB.omit({ id: true });
 
 export async function createNewsB(formData: FormData) {
+    noStore();
     const rawFormData = {
         date: formData.get('date'),
         title: formData.get('title'),
@@ -47,6 +48,7 @@ export async function createNewsB(formData: FormData) {
     }
 
     revalidatePath('/admin');
+    // redirect('/admin')
 
 }
 
