@@ -2,26 +2,31 @@
 
 import classes from "@/app/ui/crNewsForm.module.css";
 import { createNewsB } from "../lib/action";
-import { useState} from "react";
+import { useState, FormEvent } from "react";
 
-export function CreateNewsForm({setIsSaving}:{setIsSaving:Function}) {
- 
-//   const [isSaving, setIsSaving]=useState('')
- const date = new Date().toISOString().split("T")[0];
+export function CreateNewsForm({ setIsSaving }: { setIsSaving: Function }) {
+  //   const [isSaving, setIsSaving]=useState('')
+  const date = new Date().toISOString().split("T")[0];
 
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   async function act(formData: FormData) {
-  
- setIsSaving('Saving')
+    setIsSaving("Saving");
     await createNewsB(formData);
-    setIsSaving('Saved')
-   
+    setIsSaving("Saved");
+  }
+
+  async function onSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setIsLoading(true); // Set loading to true when the request starts
+    const formData = new FormData(event.currentTarget); //get formData from event
+    await createNewsB(formData); //upload formData
+    setIsLoading(false); // Set loading to false when the request completes
   }
 
   return (
     <>
-      
-      <form action={act} className={classes.createForm}>
+      <form onSubmit={onSubmit} className={classes.createForm}>
         <h2 className={classes.h2}>Create news</h2>
         <label htmlFor="date" className={classes.label}>
           Date
@@ -65,8 +70,8 @@ export function CreateNewsForm({setIsSaving}:{setIsSaving:Function}) {
           placeholder="Text"
           required
         ></textarea>
-        <button type="submit" className="btn">
-          Save news
+        <button type="submit" className="btn" disabled={isLoading}>
+          {isLoading ? "Loading..." : "Submit"}
         </button>
       </form>
     </>
