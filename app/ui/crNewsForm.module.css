@@ -1,5 +1,5 @@
 .createForm {
-    
+    position: relative;
     margin: 0.5rem 0.5rem;
     padding: 0.5rem;
   background-color: var(--green-500);
@@ -27,4 +27,11 @@ width: 100%;
     padding: 0.25rem;
     margin-right: 1rem;
     margin-left: auto;
+}
+.closeBtn{
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  right: 0rem;
+  top: 0.25rem;
 }

@@ -17,7 +17,7 @@ export default function ExForm( {news}:{news:INewsMassage[]}) {
             >Create news</button>
             <h2>{`${isSaving}`}</h2>
             {
-             isForm && <CreateNewsForm setIsSaving={setIsSaving}/>
+             isForm && <CreateNewsForm setIsForm={setIsForm}/>
 
             }
         </>

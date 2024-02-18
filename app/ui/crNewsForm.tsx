@@ -4,17 +4,12 @@ import classes from "@/app/ui/crNewsForm.module.css";
 import { createNewsB } from "../lib/action";
 import { useState, FormEvent } from "react";
 
-export function CreateNewsForm({ setIsSaving }: { setIsSaving: Function }) {
+export function CreateNewsForm({ setIsForm }: { setIsForm: Function }) {
   //   const [isSaving, setIsSaving]=useState('')
   const date = new Date().toISOString().split("T")[0];
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  async function act(formData: FormData) {
-    setIsSaving("Saving");
-    await createNewsB(formData);
-    setIsSaving("Saved");
-  }
+  
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -27,6 +22,10 @@ export function CreateNewsForm({ setIsSaving }: { setIsSaving: Function }) {
   return (
     <>
       <form onSubmit={onSubmit} className={classes.createForm}>
+      <button 
+      className={`btn ${classes.closeBtn}`}
+      onClick={()=>setIsForm(false)}
+      >X</button>
         <h2 className={classes.h2}>Create news</h2>
         <label htmlFor="date" className={classes.label}>
           Date
