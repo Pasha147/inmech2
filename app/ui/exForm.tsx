@@ -7,7 +7,6 @@ import { CreateNewsForm } from "./crNewsForm";
 
 export default function ExForm( {news}:{news:INewsMassage[]}) {
     const [isForm, setIsForm]=useState(false)
-    const [isSaving, setIsSaving]=useState('')
     
     return (
         <>
@@ -15,8 +14,7 @@ export default function ExForm( {news}:{news:INewsMassage[]}) {
                 className="btn"
                 onClick={()=>setIsForm(prev=>!prev)}
             >Create news</button>
-            <h2>{`${isSaving}`}</h2>
-            {
+                        {
              isForm && <CreateNewsForm setIsForm={setIsForm}/>
 
             }
