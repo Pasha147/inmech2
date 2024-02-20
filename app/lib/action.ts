@@ -150,9 +150,9 @@ export async function deleteNews(id: string) {
     revalidatePath('/');
 }
 
-export async function editNewsId(id: string) {
-    redirect(`/admin/${id}/editNews`)
-}
+// export async function editNewsId(id: string) {
+//     redirect(`/admin/${id}/editNews`)
+// }
 
 
 
